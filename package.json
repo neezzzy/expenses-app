@@ -1,14 +1,24 @@
 {
-  "name": "boilerplate-v2",
+  "name": "expenses-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-native-community/eslint-config": "^2.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "bootstrap": "^4.6.0",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
+    "react-datepicker": "^4.1.1",
     "react-dom": "^17.0.2",
+    "react-modal": "^3.14.2",
+    "react-redux": "^7.2.4",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-uuid": "^1.0.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -20,7 +30,7 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "prettier"
     ]
   },
   "browserslist": {
@@ -34,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint-config-prettier": "^6.15.0"
   }
 }
