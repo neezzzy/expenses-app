@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { setTextFilter, sortByDate, sortByAmount } from "../actions/filters";
-import { Form, Col, FormGroup, Checkbox } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,12 +11,11 @@ const ExpenseListFilters = (props) => {
   return (
     <div className="container-fluid">
       <h1>Expenses:</h1>
-
       <div className="row">
         <div className="col">
           <div className="form-outline">
             <label className="form-label" htmlFor="form8Example1">
-            Search by Name:
+              Search by Name:
             </label>
             <Form.Control
               type="text"
@@ -70,8 +70,12 @@ const ExpenseListFilters = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filters
+    filters: state.filters,
   };
 };
 
+ExpenseListFilters.propTypes = {
+  dispatch: PropTypes.any,
+  filters: PropTypes.any,
+};
 export default connect(mapStateToProps)(ExpenseListFilters);

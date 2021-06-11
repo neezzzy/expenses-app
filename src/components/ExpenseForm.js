@@ -7,17 +7,17 @@ import {
   Row,
   InputGroup,
   FormControl,
-  Modal
+  Modal,
 } from "react-bootstrap";
 import uuid from "react-uuid";
 
-const ExpenseForm = (props) => {
+const ExpenseForm = () => {
   const [expense, setExpense] = useState({
     description: "",
     note: "",
     amount: "",
     error: "",
-    id: ""
+    id: "",
   });
   const [show, setShow] = useState(false);
 
@@ -28,6 +28,7 @@ const ExpenseForm = (props) => {
 
   const handleChange = (event) => {
     const { value, name } = event.target;
+
     setExpense((prevState) => ({ ...prevState, [name]: value, id: uuid() }));
   };
 
@@ -39,10 +40,9 @@ const ExpenseForm = (props) => {
       note: "",
       amount: "",
       error: "",
-      id: ""
+      id: "",
     });
     handleShow();
-    console.log(expense);
   };
 
   return (
@@ -57,6 +57,7 @@ const ExpenseForm = (props) => {
                   <Row className="align-items-center">
                     <Col sm={6} md={6} lg={9}>
                       <Form.Control
+                        required
                         className="mb-2"
                         id="inlineFormInput"
                         placeholder="Description"
@@ -69,12 +70,12 @@ const ExpenseForm = (props) => {
                       <InputGroup className="mb-2">
                         <InputGroup.Text>$</InputGroup.Text>
                         <FormControl
+                          required
                           id="inlineFormInputGroup"
                           placeholder="amount"
                           name="amount"
                           value={expense.amount}
                           onChange={handleChange}
-                          placeholder="Amount in $"
                         />
                       </InputGroup>
                     </Col>
@@ -83,6 +84,7 @@ const ExpenseForm = (props) => {
               </div>
               <div className="form-outline pt-2 pb-3">
                 <Form.Control
+                  required
                   as="textarea"
                   rows={3}
                   placeholder="Add a note for your expense"

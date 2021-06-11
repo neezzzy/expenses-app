@@ -1,23 +1,41 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 import { Modal, Button, ListGroup } from "react-bootstrap";
-import ExpenseForm from "./ExpenseForm";
+import EditExpenseForm from "./EditExpenseForm";
 
 const ExpenseListItem = ({ id, description, amount, note }) => {
-  const dispatch = useDispatch();
+  const [updatedExpense, setUpdatedExpense] = useState({
+    description: "",
+    note: "",
+    amount: "",
+    error: "",
+    id: ""
+  });
 
+  const handleChange = (event) => {
+    const { value, name } = event.target;
+    setUpdatedExpense((prevState) => ({ ...prevState, [name]: value, id }));
+  };
+
+  const dispatch = useDispatch();
   const removeExpenseById = (id) => {
     dispatch({ type: "REMOVE_EXPENSE", payload: id });
   };
 
   const editExpenseById = (id) => {
-    handleShow();
+    dispatch({ type: "EDIT_EXPENSE", id: id, updatedExpense: updatedExpense });
+    setShow(false);
   };
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    // e.preventDefault();
+    setShow(false);
+  };
+
   const handleShow = () => setShow(true);
 
   return (
@@ -36,7 +54,7 @@ const ExpenseListItem = ({ id, description, amount, note }) => {
               variant="info"
               className="mt-2 pr-4 mr-2 text-center"
               onClick={() => {
-                editExpenseById(id);
+                handleShow()
               }}
             >
               EDIT
@@ -58,19 +76,35 @@ const ExpenseListItem = ({ id, description, amount, note }) => {
           <Modal.Title>Edit {description}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ExpenseForm />
+
+        {/* EXPENSE FORM  */}
+          <EditExpenseForm
+            handleChange={handleChange}
+            id={id}
+            description={description}
+            amount={amount}
+            note={note}
+          />
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={() => editExpenseById(id)}>
             Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
     </div>
   );
+};
+
+ExpenseListItem.propTypes = {
+  id: PropTypes.string,
+  description: PropTypes.string,
+  note: PropTypes.string,
+  amount: PropTypes.string,
 };
 
 export default connect()(ExpenseListItem);

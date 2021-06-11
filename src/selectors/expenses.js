@@ -2,8 +2,6 @@
 const getVisibleExpenses = (expenses, { text, sortBy }) => {
     return expenses.filter((expense) => {
         const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
-        // console.log('expense.text ' + expense.description); //---> 'Rent' 'Coffee'
-        // console.log('text ' + text); //---> 'rent'
         return textMatch;
     }).sort((a, b) => {
         if (sortBy === 'amount') {
